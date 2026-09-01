@@ -1,0 +1,29 @@
+# ============================================================
+# Instrument Vision System - Dependências
+# Testado: Python 3.10+ | Compatível: Raspberry Pi 5
+# ============================================================
+ 
+# --- Visão Computacional ---
+opencv-python>=4.8.0          # Captura, pré-processamento e visualização
+numpy>=1.24.0                  # Operações matriciais e vetoriais
+ 
+# --- Deep Learning / Classificação ---
+ultralytics>=8.0.0             # YOLOv8 Classification
+torch>=2.0.0                   # Backend PyTorch (CPU no RPi5)
+torchvision>=0.15.0            # Transformações de imagem
+ 
+# --- OCR ---
+easyocr>=1.7.0                 # OCR para instrumentos digitais
+ 
+# --- Utilitários ---
+Pillow>=10.0.0                 # Manipulação de imagens
+pyyaml>=6.0                    # Leitura de configurações YAML
+tqdm>=4.65.0                   # Barras de progresso
+ 
+# ============================================================
+# INSTALAÇÃO:
+#   pip install -r requirements.txt
+#
+# Para Raspberry Pi 5 (sem GPU), instale PyTorch CPU-only:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# ============================================================

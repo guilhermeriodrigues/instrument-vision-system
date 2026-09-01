@@ -1,0 +1,65 @@
+# ============================================================
+# Instrument Vision System - Configuração Central
+# Altere aqui sem modificar o código-fonte
+# ============================================================
+
+camera:
+  index: 0                    # Índice da webcam (0 = padrão)
+  width: 640                  # Resolução horizontal do frame
+  height: 480                 # Resolução vertical do frame
+  fps: 30                     # FPS solicitado à câmera
+  roi_ratio: 0.55             # Fração do frame para ROI central (0.0–1.0)
+
+classification:
+  model_path: "models/yolov8n-cls.pt"   # Caminho para o modelo treinado
+  confidence_threshold: 0.60             # Confiança mínima para aceitar predição
+  input_size: 224                        # Tamanho do crop de entrada no modelo
+  class_names:
+    - "Analog_Instruments"
+    - "Digital_Instruments"
+
+analog:
+  # Parâmetros de pré-processamento
+  blur_kernel: 5              # Tamanho do kernel Gaussian Blur (ímpar)
+  canny_low: 50               # Limiar inferior do Canny
+  canny_high: 150             # Limiar superior do Canny
+
+  # Parâmetros HoughLinesP
+  hough_rho: 1                # Resolução em pixels
+  hough_theta_deg: 1.0        # Resolução angular em graus
+  hough_threshold: 40         # Acumulador mínimo de votos
+  hough_min_line_length: 30   # Comprimento mínimo de linha (px)
+  hough_max_line_gap: 10      # Gap máximo entre segmentos (px)
+
+  # Parâmetros do gauge (escala física do instrumento)
+  angle_min_deg: -135.0       # Ângulo quando ponteiro está no mínimo da escala
+  angle_max_deg: 135.0        # Ângulo quando ponteiro está no máximo da escala
+  value_min: 0.0              # Valor físico no ângulo mínimo
+  value_max: 100.0            # Valor físico no ângulo máximo
+  unit: "%"                   # Unidade de medida
+
+  # Filtragem temporal (média móvel para estabilizar leitura)
+  smoothing_window: 5         # Número de frames para média
+
+ocr:
+  gpu: false                  # true = GPU, false = CPU (obrigatório no RPi5)
+  languages:
+    - "en"                    # Idiomas para EasyOCR
+  # Pós-processamento do texto extraído
+  allowed_chars: "0123456789.,-+"   # Caracteres válidos em leituras numéricas
+  min_confidence: 0.40              # Confiança mínima do EasyOCR
+
+display:
+  font_scale: 0.65
+  thickness: 2
+  color_analog: [0, 200, 255]     # Amarelo-ouro (BGR)
+  color_digital: [0, 255, 120]    # Verde-ciano (BGR)
+  color_warning: [0, 60, 255]     # Vermelho (BGR)
+  color_info: [220, 220, 220]     # Cinza claro (BGR)
+  show_roi: true                  # Desenhar borda da ROI no frame
+  show_debug_lines: false         # Mostrar linhas Hough no frame
+
+logging:
+  level: "INFO"               # DEBUG | INFO | WARNING | ERROR
+  log_to_file: false
+  log_file: "logs/ivs.log"
